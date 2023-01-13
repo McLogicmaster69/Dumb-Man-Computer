@@ -2,5 +2,5 @@
 
 # COMMANDS:
 
-HLT: Stops the program
+HLT: Stops the program \n
 ADD: Adds number stored in memory address
