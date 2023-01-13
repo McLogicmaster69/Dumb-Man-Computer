@@ -180,10 +180,16 @@ namespace Dumb_Man_Computer
                     case 11: // CON
                         break;
                     case 12: // MUL
-                        accumulator *= Memory.Bytes[Math.Abs(NumberValue)].GetNumberValue();
+                        if (NumberValue >= 0)
+                            accumulator *= Memory.Bytes[Math.Abs(NumberValue)].GetNumberValue();
+                        else
+                            accumulator *= Memory.Bytes[Memory.Bytes[Math.Abs(NumberValue)].GetNumberValue()].GetNumberValue();
                         break;
                     case 13: // DIV
-                        accumulator /= Memory.Bytes[Math.Abs(NumberValue)].GetNumberValue();
+                        if (NumberValue >= 0)
+                            accumulator /= Memory.Bytes[Math.Abs(NumberValue)].GetNumberValue();
+                        else
+                            accumulator /= Memory.Bytes[Memory.Bytes[Math.Abs(NumberValue)].GetNumberValue()].GetNumberValue();
                         break;
                     case 14: // ADN
                         accumulator += NumberValue;
