@@ -29,10 +29,12 @@ namespace Dumb_Man_Computer
             }
             return bytes.ToArray();
         }
-        public List<string> ConvertToCommands(string inputText, out Exception exception)
+        public List<string> ConvertToCommands(string inputText, string inputTrackedLabels, out Exception exception, out List<LabelledAddress> trackedAddresses)
         {
             string text = inputText;
+            string trackedLabels = inputTrackedLabels;
             exception = null;
+            trackedAddresses = new List<LabelledAddress>();
             if(text == "")
                 return new List<string>();
 
@@ -40,6 +42,8 @@ namespace Dumb_Man_Computer
 
             while (true)
             {
+                if(text.Length == 0)
+                    return new List<string>();
                 if (text[text.Length - 1] == '\n')
                     text = text.Remove(text.Length - 2);
                 else if (text[text.Length - 1] == ' ')
@@ -207,7 +211,7 @@ namespace Dumb_Man_Computer
 
             lines = newLines.ToArray();
 
-            // Collect flags
+            // COLLECT FLAGS
 
             List<string> flagIdentifiers = new List<string>();
             List<int> flagLocations = new List<int>();
@@ -300,7 +304,7 @@ namespace Dumb_Man_Computer
                 }
             }
 
-            // Replace flags
+            // REPLACE FLAGS
 
             List<string> commands = new List<string>();
 
@@ -483,7 +487,134 @@ namespace Dumb_Man_Computer
                 }
             }
 
-            exception = null;
+            // REMOVE TRACKED WHITESPACE
+
+            if (trackedLabels == "")
+                return commands;
+
+            while (true)
+            {
+                if (trackedLabels.Length == 0)
+                    return commands;
+                if (trackedLabels[trackedLabels.Length - 1] == '\n')
+                    trackedLabels = trackedLabels.Remove(trackedLabels.Length - 2);
+                else if (trackedLabels[trackedLabels.Length - 1] == ' ')
+                    trackedLabels = trackedLabels.Remove(trackedLabels.Length - 1);
+                else
+                    break;
+            }
+            while (true)
+            {
+                if (trackedLabels[0] == ' ')
+                    trackedLabels = trackedLabels.Substring(1);
+                else if (trackedLabels[0] == '\r')
+                    trackedLabels = trackedLabels.Substring(2);
+                else
+                    break;
+            }
+            cur = 0;
+            lastSpace = false;
+            lastEnter = false;
+            while (cur < trackedLabels.Length)
+            {
+                if (trackedLabels[cur] == ' ')
+                {
+                    if (lastSpace)
+                    {
+                        lastEnter = false;
+                        trackedLabels = trackedLabels.Remove(cur, 1);
+                    }
+                    else
+                    {
+                        if (lastEnter)
+                        {
+                            trackedLabels = trackedLabels.Remove(cur, 1);
+                        }
+                        else
+                        {
+                            lastSpace = true;
+                            cur++;
+                        }
+                    }
+                }
+                else if (trackedLabels[cur] == '\r')
+                {
+                    lastSpace = false;
+                    if (lastEnter)
+                    {
+                        trackedLabels = trackedLabels.Remove(cur, 2);
+                    }
+                    else
+                    {
+                        lastEnter = true;
+                        cur += 2;
+                    }
+                }
+                else
+                {
+                    lastSpace = false;
+                    lastEnter = false;
+                    cur++;
+                }
+            }
+            cur = trackedLabels.Length - 1;
+            lastEnter = false;
+            while (cur >= 0)
+            {
+                if (trackedLabels[cur] == '\n')
+                {
+                    lastEnter = true;
+                    cur -= 2;
+                }
+                else if (trackedLabels[cur] == ' ')
+                {
+                    if (lastEnter)
+                    {
+                        trackedLabels = trackedLabels.Remove(cur, 1);
+                        cur--;
+                    }
+                    else
+                    {
+                        cur--;
+                    }
+                }
+                else
+                {
+                    lastEnter = false;
+                    cur--;
+                }
+            }
+
+            // TRACK FLAGS
+
+            string[] trackedFlags = trackedLabels.Split('\r');
+            for (int i = 1; i < trackedFlags.Length; i++)
+            {
+                trackedFlags[i] = trackedFlags[i].Remove(0, 1);
+            }
+            for(int i = 0; i < trackedFlags.Length; i++)
+            {
+                string flag = trackedFlags[i];
+                if (flagIdentifiers.Contains(flag))
+                {
+                    int pos = 0;
+                    for (int j = 0; j < flagIdentifiers.Count; j++)
+                    {
+                        if (flagIdentifiers[j] == flag)
+                        {
+                            pos = j;
+                            break;
+                        }
+                    }
+                    trackedAddresses.Add(new LabelledAddress(flag, flagLocations[pos]));
+                }
+                else
+                {
+                    exception = new Exception(ExceptionType.InvalidTrackedLabel, i);
+                    return null;
+                }
+            }
+
             return commands;
         }
     }

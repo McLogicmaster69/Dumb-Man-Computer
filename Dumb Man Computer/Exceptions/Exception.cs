@@ -17,6 +17,7 @@ namespace Dumb_Man_Computer.Exceptions
         NonInteger,
         InvalidIdentifier,
         InvalidMemoryLocation,
+        InvalidTrackedLabel,
         
         // RUNTIME
         InvalidFormSize,

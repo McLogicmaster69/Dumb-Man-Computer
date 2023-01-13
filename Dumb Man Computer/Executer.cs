@@ -9,6 +9,9 @@ namespace Dumb_Man_Computer
     public class Executer
     {
         private Memory Memory = new Memory();
+        private List<LabelledAddress> TrackingMemory = new List<LabelledAddress>();
+        private MemoryTracker Tracker;
+        private bool isTracking = false;
         private int currentInstruction = 0;
         private int accumulator = 0;
 
@@ -28,6 +31,26 @@ namespace Dumb_Man_Computer
                 Memory.Bytes[i].Value = memory[i].Value;
             }
 
+            isTracking = false;
+
+            Graphics = new graphicalOutput();
+            PixelSize = 10;
+            Width = 20;
+            Height = 20; 
+            Graphics.RefreshForm(Width, Height, PixelSize);
+        }
+        public void LoadIntoMemory(MemoryByte[] memory, List<LabelledAddress> trackingMemory)
+        {
+            Memory = new Memory();
+            for (int i = 0; i < memory.Length; i++)
+            {
+                Memory.Bytes[i].Value = memory[i].Value;
+            }
+
+            TrackingMemory = trackingMemory;
+            Tracker = new MemoryTracker(trackingMemory.Count);
+            isTracking = true;
+
             Graphics = new graphicalOutput();
             PixelSize = 10;
             Width = 20;
@@ -40,11 +63,30 @@ namespace Dumb_Man_Computer
             currentInstruction = 0;
             accumulator = 0;
             ExecutionCycle(out exception);
+            if (exception != null)
+                Graphics.Hide();
         }
         public void Input(int input, out Exceptions.Exception exception)
         {
             accumulator = input;
             ExecutionCycle(out exception);
+            if (exception != null)
+                Graphics.Hide();
+        }
+        private void CreateTraceTable()
+        {
+            if (isTracking)
+            {
+                List<string> trackedLabels = new List<string>();
+                foreach (LabelledAddress address in TrackingMemory)
+                {
+                    trackedLabels.Add(address.Label);
+                }
+                traceTable table = new traceTable();
+                table.SetupTraceTable(trackedLabels, Tracker);
+                table.Show();
+                Tracker = new MemoryTracker(TrackingMemory.Count);
+            }
         }
         private void ExecutionCycle(out Exceptions.Exception exception)
         {
@@ -58,16 +100,35 @@ namespace Dumb_Man_Computer
                 {
                     case 0: // HLT
                         Graphics.Hide();
+                        CreateTraceTable();
                         return;
                     case 1: // ADD
                         accumulator += Memory.Bytes[Math.Abs(NumberValue)].GetNumberValue();
                         break;
                     case 2: // SUB
-                        accumulator -= Memory.Bytes[Math.Abs(NumberValue)].GetNumberValue(); 
+                        accumulator -= Memory.Bytes[Math.Abs(NumberValue)].GetNumberValue();
                         break;
                     case 3: // STA
                         if (NumberValue >= 0)
+                        {
                             Memory.Bytes[NumberValue].SetNumberValue(accumulator);
+                            if (isTracking)
+                            {
+                                for (int i = 0; i < TrackingMemory.Count; i++)
+                                {
+                                    if(TrackingMemory[i].Address == NumberValue)
+                                    {
+                                        int[] mem = new int[TrackingMemory.Count];
+                                        for (int j = 0; j < TrackingMemory.Count; j++)
+                                        {
+                                            mem[j] = Memory.Bytes[TrackingMemory[j].Address].GetNumberValue();
+                                        }
+                                        Tracker.LogMemory(mem);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
                         else
                             Memory.Bytes[Memory.Bytes[Math.Abs(NumberValue)].GetNumberValue()].SetNumberValue(accumulator);
                         break;
@@ -172,7 +233,7 @@ namespace Dumb_Man_Computer
                         Graphics.Hide();
                         break;
                     case 25: // GRR
-                        if (PixelSize * Width < MinFormSize || PixelSize * Height < MinFormSize || PixelSize * Width > MaxFormSize || PixelSize * Height > MaxFormSize)
+                        if (PixelSize * Width < MinFormSize || PixelSize * Height < MinFormSize || PixelSize * Width > MaxFormSize || PixelSize * Height > MaxFormSize || Width * Height >= OSConstants.MaxValue)
                         {
                             exception = new Exceptions.Exception(Exceptions.ExceptionType.InvalidFormSize);
                             return;
@@ -189,31 +250,70 @@ namespace Dumb_Man_Computer
                         Height = Math.Abs(NumberValue);
                         break;
                     case 29: // GRE
-                        if(Memory.Bytes[Math.Abs(NumberValue)].GetNumberValue() >= Width * Height || Memory.Bytes[Math.Abs(NumberValue)].GetNumberValue() < 0)
+                        if (NumberValue >= 0)
                         {
-                            exception = new Exceptions.Exception(Exceptions.ExceptionType.PixelOutOfRange);
-                            return;
+                            if (NumberValue >= Width * Height || NumberValue < 0)
+                            {
+                                exception = new Exceptions.Exception(Exceptions.ExceptionType.PixelOutOfRange);
+                                return;
+                            }
+                            Graphics.Values[NumberValue] = true;
+                            Graphics.UpdatePixel(NumberValue);
                         }
-                        Graphics.Values[Memory.Bytes[Math.Abs(NumberValue)].GetNumberValue()] = true;
-                        Graphics.UpdatePixel(Memory.Bytes[Math.Abs(NumberValue)].GetNumberValue());
+                        else
+                        {
+                            if (Memory.Bytes[Math.Abs(NumberValue)].GetNumberValue() >= Width * Height || Memory.Bytes[Math.Abs(NumberValue)].GetNumberValue() < 0)
+                            {
+                                exception = new Exceptions.Exception(Exceptions.ExceptionType.PixelOutOfRange);
+                                return;
+                            }
+                            Graphics.Values[Memory.Bytes[Math.Abs(NumberValue)].GetNumberValue()] = true;
+                            Graphics.UpdatePixel(Memory.Bytes[Math.Abs(NumberValue)].GetNumberValue());
+                        }
                         break;
                     case 30: // GRD
-                        if (Memory.Bytes[Math.Abs(NumberValue)].GetNumberValue() >= Width * Height || Memory.Bytes[Math.Abs(NumberValue)].GetNumberValue() < 0)
+                        if (NumberValue >= 0)
                         {
-                            exception = new Exceptions.Exception(Exceptions.ExceptionType.PixelOutOfRange);
-                            return;
+                            if (NumberValue >= Width * Height || NumberValue < 0)
+                            {
+                                exception = new Exceptions.Exception(Exceptions.ExceptionType.PixelOutOfRange);
+                                return;
+                            }
+                            Graphics.Values[NumberValue] = false;
+                            Graphics.UpdatePixel(NumberValue);
                         }
-                        Graphics.Values[Memory.Bytes[Math.Abs(NumberValue)].GetNumberValue()] = false;
-                        Graphics.UpdatePixel(Memory.Bytes[Math.Abs(NumberValue)].GetNumberValue());
+                        else
+                        {
+                            if (Memory.Bytes[Math.Abs(NumberValue)].GetNumberValue() >= Width * Height || Memory.Bytes[Math.Abs(NumberValue)].GetNumberValue() < 0)
+                            {
+                                exception = new Exceptions.Exception(Exceptions.ExceptionType.PixelOutOfRange);
+                                return;
+                            }
+                            Graphics.Values[Memory.Bytes[Math.Abs(NumberValue)].GetNumberValue()] = false;
+                            Graphics.UpdatePixel(Memory.Bytes[Math.Abs(NumberValue)].GetNumberValue());
+                        }
                         break;
                     case 31: // GRS
-                        if (Memory.Bytes[Math.Abs(NumberValue)].GetNumberValue() >= Width * Height || Memory.Bytes[Math.Abs(NumberValue)].GetNumberValue() < 0)
+                        if (NumberValue >= 0)
                         {
-                            exception = new Exceptions.Exception(Exceptions.ExceptionType.PixelOutOfRange);
-                            return;
+                            if (NumberValue >= Width * Height || NumberValue < 0)
+                            {
+                                exception = new Exceptions.Exception(Exceptions.ExceptionType.PixelOutOfRange);
+                                return;
+                            }
+                            Graphics.Values[NumberValue] = !Graphics.Values[NumberValue];
+                            Graphics.UpdatePixel(NumberValue);
                         }
-                        Graphics.Values[Memory.Bytes[Math.Abs(NumberValue)].GetNumberValue()] = !Graphics.Values[Memory.Bytes[Math.Abs(NumberValue)].GetNumberValue()];
-                        Graphics.UpdatePixel(Memory.Bytes[Math.Abs(NumberValue)].GetNumberValue());
+                        else
+                        {
+                            if (Memory.Bytes[Math.Abs(NumberValue)].GetNumberValue() >= Width * Height || Memory.Bytes[Math.Abs(NumberValue)].GetNumberValue() < 0)
+                            {
+                                exception = new Exceptions.Exception(Exceptions.ExceptionType.PixelOutOfRange);
+                                return;
+                            }
+                            Graphics.Values[Memory.Bytes[Math.Abs(NumberValue)].GetNumberValue()] = !Graphics.Values[Memory.Bytes[Math.Abs(NumberValue)].GetNumberValue()];
+                            Graphics.UpdatePixel(Memory.Bytes[Math.Abs(NumberValue)].GetNumberValue());
+                        }
                         break;
                 }
                 if (accumulator >= OSConstants.MaxValue)
@@ -222,6 +322,7 @@ namespace Dumb_Man_Computer
                     accumulator += OSConstants.MaxValue * 2 - 1;
                 currentInstruction++;
             }
+            CreateTraceTable();
         }
     }
 }

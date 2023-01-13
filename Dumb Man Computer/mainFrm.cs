@@ -24,14 +24,18 @@ namespace Dumb_Man_Computer
         private void loadToRamBtn_Click(object sender, EventArgs e)
         {
             codeTxt.Text = codeTxt.Text.ToUpper();
-            List<string> commands = Interpreter.ConvertToCommands(codeTxt.Text, out Exceptions.Exception exception);
+            trackedLabels.Text = trackedLabels.Text.ToUpper();
+            List<string> commands = Interpreter.ConvertToCommands(codeTxt.Text, trackedLabels.Text, out Exceptions.Exception exception, out List<LabelledAddress> tracked);
             RAMCommandsTxt.Text = "";
             RAMBinaryTxt.Text = "";
             if(exception == null)
             {
                 MemoryByte[] bytes = Interpreter.Interpret(commands);
-                Executer.LoadIntoMemory(bytes);
-                foreach(MemoryByte mb in bytes)
+                if(tracked.Count == 0)
+                    Executer.LoadIntoMemory(bytes);
+                else
+                    Executer.LoadIntoMemory(bytes, tracked);
+                foreach (MemoryByte mb in bytes)
                 {
                     RAMBinaryTxt.Text += mb.Value + "\r\n";
                 }

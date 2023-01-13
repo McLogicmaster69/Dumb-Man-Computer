@@ -37,6 +37,7 @@ namespace Dumb_Man_Computer
             this.output = new System.Windows.Forms.ListBox();
             this.inputNum = new System.Windows.Forms.NumericUpDown();
             this.enterBtn = new System.Windows.Forms.Button();
+            this.trackedLabels = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.inputNum)).BeginInit();
             this.SuspendLayout();
             // 
@@ -133,11 +134,23 @@ namespace Dumb_Man_Computer
             this.enterBtn.UseVisualStyleBackColor = true;
             this.enterBtn.Click += new System.EventHandler(this.enterBtn_Click);
             // 
+            // trackedLabels
+            // 
+            this.trackedLabels.AcceptsReturn = true;
+            this.trackedLabels.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.trackedLabels.Location = new System.Drawing.Point(807, 12);
+            this.trackedLabels.Multiline = true;
+            this.trackedLabels.Name = "trackedLabels";
+            this.trackedLabels.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.trackedLabels.Size = new System.Drawing.Size(164, 481);
+            this.trackedLabels.TabIndex = 8;
+            // 
             // mainFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(811, 505);
+            this.ClientSize = new System.Drawing.Size(983, 505);
+            this.Controls.Add(this.trackedLabels);
             this.Controls.Add(this.enterBtn);
             this.Controls.Add(this.inputNum);
             this.Controls.Add(this.output);
@@ -167,6 +180,7 @@ namespace Dumb_Man_Computer
         private System.Windows.Forms.ListBox output;
         private System.Windows.Forms.NumericUpDown inputNum;
         private System.Windows.Forms.Button enterBtn;
+        private System.Windows.Forms.TextBox trackedLabels;
     }
 }
 
