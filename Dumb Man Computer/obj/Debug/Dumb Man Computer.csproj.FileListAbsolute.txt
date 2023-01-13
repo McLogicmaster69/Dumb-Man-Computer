@@ -1,0 +1,30 @@
+E:\Programming\Libaries\C#\Dumb Man Computer\Dumb Man Computer\bin\Debug\Dumb Man Computer.exe.config
+E:\Programming\Libaries\C#\Dumb Man Computer\Dumb Man Computer\bin\Debug\Dumb Man Computer.exe
+E:\Programming\Libaries\C#\Dumb Man Computer\Dumb Man Computer\bin\Debug\Dumb Man Computer.pdb
+E:\Programming\Libaries\C#\Dumb Man Computer\Dumb Man Computer\obj\Debug\Dumb Man Computer.csproj.AssemblyReference.cache
+E:\Programming\Libaries\C#\Dumb Man Computer\Dumb Man Computer\obj\Debug\Dumb_Man_Computer.mainFrm.resources
+E:\Programming\Libaries\C#\Dumb Man Computer\Dumb Man Computer\obj\Debug\Dumb_Man_Computer.Properties.Resources.resources
+E:\Programming\Libaries\C#\Dumb Man Computer\Dumb Man Computer\obj\Debug\Dumb Man Computer.csproj.GenerateResource.cache
+E:\Programming\Libaries\C#\Dumb Man Computer\Dumb Man Computer\obj\Debug\Dumb Man Computer.csproj.CoreCompileInputs.cache
+E:\Programming\Libaries\C#\Dumb Man Computer\Dumb Man Computer\obj\Debug\Dumb Man Computer.exe
+E:\Programming\Libaries\C#\Dumb Man Computer\Dumb Man Computer\obj\Debug\Dumb Man Computer.pdb
+D:\Programs\Dumb Man Computer\Dumb Man Computer\bin\Debug\Dumb Man Computer.exe.config
+D:\Programs\Dumb Man Computer\Dumb Man Computer\bin\Debug\Dumb Man Computer.exe
+D:\Programs\Dumb Man Computer\Dumb Man Computer\bin\Debug\Dumb Man Computer.pdb
+D:\Programs\Dumb Man Computer\Dumb Man Computer\obj\Debug\Dumb Man Computer.csprojAssemblyReference.cache
+D:\Programs\Dumb Man Computer\Dumb Man Computer\obj\Debug\Dumb_Man_Computer.mainFrm.resources
+D:\Programs\Dumb Man Computer\Dumb Man Computer\obj\Debug\Dumb_Man_Computer.Properties.Resources.resources
+D:\Programs\Dumb Man Computer\Dumb Man Computer\obj\Debug\Dumb Man Computer.csproj.GenerateResource.cache
+D:\Programs\Dumb Man Computer\Dumb Man Computer\obj\Debug\Dumb Man Computer.exe
+D:\Programs\Dumb Man Computer\Dumb Man Computer\obj\Debug\Dumb Man Computer.pdb
+G:\Programs\Dumb Man Computer\Dumb Man Computer\obj\Debug\Dumb Man Computer.csproj.AssemblyReference.cache
+G:\Programs\Dumb Man Computer\Dumb Man Computer\obj\Debug\Dumb_Man_Computer.mainFrm.resources
+G:\Programs\Dumb Man Computer\Dumb Man Computer\obj\Debug\Dumb_Man_Computer.Properties.Resources.resources
+G:\Programs\Dumb Man Computer\Dumb Man Computer\obj\Debug\Dumb Man Computer.csproj.GenerateResource.cache
+G:\Programs\Dumb Man Computer\Dumb Man Computer\obj\Debug\Dumb Man Computer.csproj.CoreCompileInputs.cache
+G:\Programs\Dumb Man Computer\Dumb Man Computer\obj\Debug\Dumb Man Computer.exe
+G:\Programs\Dumb Man Computer\Dumb Man Computer\obj\Debug\Dumb Man Computer.pdb
+G:\Programs\Dumb Man Computer\Dumb Man Computer\bin\Debug\Dumb Man Computer.exe.config
+G:\Programs\Dumb Man Computer\Dumb Man Computer\bin\Debug\Dumb Man Computer.exe
+G:\Programs\Dumb Man Computer\Dumb Man Computer\bin\Debug\Dumb Man Computer.pdb
+G:\Programs\Dumb Man Computer\Dumb Man Computer\obj\Debug\Dumb_Man_Computer.graphicalOutput.resources
