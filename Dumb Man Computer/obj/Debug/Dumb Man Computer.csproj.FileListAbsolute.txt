@@ -31,3 +31,5 @@ G:\Programs\Dumb Man Computer\Dumb Man Computer\obj\Debug\Dumb_Man_Computer.grap
 D:\Programs\Dumb Man Computer\Dumb Man Computer\obj\Debug\Dumb_Man_Computer.graphicalOutput.resources
 D:\Programs\Dumb Man Computer\Dumb Man Computer\obj\Debug\Dumb_Man_Computer.traceTable.resources
 G:\Programs\Dumb Man Computer\Dumb Man Computer\obj\Debug\Dumb_Man_Computer.traceTable.resources
+E:\Programming\Libaries\C#\Dumb Man Computer\Dumb Man Computer\obj\Debug\Dumb_Man_Computer.graphicalOutput.resources
+E:\Programming\Libaries\C#\Dumb Man Computer\Dumb Man Computer\obj\Debug\Dumb_Man_Computer.traceTable.resources

@@ -103,10 +103,16 @@ namespace Dumb_Man_Computer
                         CreateTraceTable();
                         return;
                     case 1: // ADD
-                        accumulator += Memory.Bytes[Math.Abs(NumberValue)].GetNumberValue();
+                        if (NumberValue >= 0)
+                            accumulator += Memory.Bytes[Math.Abs(NumberValue)].GetNumberValue();
+                        else
+                            accumulator += Memory.Bytes[Memory.Bytes[Math.Abs(NumberValue)].GetNumberValue()].GetNumberValue();
                         break;
                     case 2: // SUB
-                        accumulator -= Memory.Bytes[Math.Abs(NumberValue)].GetNumberValue();
+                        if (NumberValue >= 0)
+                            accumulator -= Memory.Bytes[Math.Abs(NumberValue)].GetNumberValue();
+                        else
+                            accumulator -= Memory.Bytes[Memory.Bytes[Math.Abs(NumberValue)].GetNumberValue()].GetNumberValue();
                         break;
                     case 3: // STA
                         if (NumberValue >= 0)
