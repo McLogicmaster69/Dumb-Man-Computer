@@ -33,3 +33,15 @@ D:\Programs\Dumb Man Computer\Dumb Man Computer\obj\Debug\Dumb_Man_Computer.trac
 G:\Programs\Dumb Man Computer\Dumb Man Computer\obj\Debug\Dumb_Man_Computer.traceTable.resources
 E:\Programming\Libaries\C#\Dumb Man Computer\Dumb Man Computer\obj\Debug\Dumb_Man_Computer.graphicalOutput.resources
 E:\Programming\Libaries\C#\Dumb Man Computer\Dumb Man Computer\obj\Debug\Dumb_Man_Computer.traceTable.resources
+C:\Users\Mc\Desktop\Dumb-Man-Computer\Dumb Man Computer\bin\Debug\Dumb Man Computer.exe.config
+C:\Users\Mc\Desktop\Dumb-Man-Computer\Dumb Man Computer\bin\Debug\Dumb Man Computer.exe
+C:\Users\Mc\Desktop\Dumb-Man-Computer\Dumb Man Computer\bin\Debug\Dumb Man Computer.pdb
+C:\Users\Mc\Desktop\Dumb-Man-Computer\Dumb Man Computer\obj\Debug\Dumb Man Computer.csproj.AssemblyReference.cache
+C:\Users\Mc\Desktop\Dumb-Man-Computer\Dumb Man Computer\obj\Debug\Dumb_Man_Computer.graphicalOutput.resources
+C:\Users\Mc\Desktop\Dumb-Man-Computer\Dumb Man Computer\obj\Debug\Dumb_Man_Computer.mainFrm.resources
+C:\Users\Mc\Desktop\Dumb-Man-Computer\Dumb Man Computer\obj\Debug\Dumb_Man_Computer.Properties.Resources.resources
+C:\Users\Mc\Desktop\Dumb-Man-Computer\Dumb Man Computer\obj\Debug\Dumb_Man_Computer.traceTable.resources
+C:\Users\Mc\Desktop\Dumb-Man-Computer\Dumb Man Computer\obj\Debug\Dumb Man Computer.csproj.GenerateResource.cache
+C:\Users\Mc\Desktop\Dumb-Man-Computer\Dumb Man Computer\obj\Debug\Dumb Man Computer.csproj.CoreCompileInputs.cache
+C:\Users\Mc\Desktop\Dumb-Man-Computer\Dumb Man Computer\obj\Debug\Dumb Man Computer.exe
+C:\Users\Mc\Desktop\Dumb-Man-Computer\Dumb Man Computer\obj\Debug\Dumb Man Computer.pdb
